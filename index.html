@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .form-container {
+            background: #ffffff;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #3ECF8E; /* Supabase green */
+        }
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3ECF8E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2ea371;
+        }
+        button:disabled {
+            background-color: #a0e6c8;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .message.success {
+            display: block;
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        .message.error {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Get in Touch</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" required placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" id="submitBtn">Send Message</button>
+            <div id="formMessage" class="message"></div>
+        </form>
+    </div>
+
+    <script type="module">
+        // 1. Import the Supabase client from CDN
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+        // 2. Initialize Supabase with YOUR credentials
+        // ⚠️ REPLACE THESE WITH YOUR ACTUAL URL AND KEY
+        const supabaseUrl = 'https://fvefwfkdgbqonczasvxw.supabase.co';
+        const supabaseKey = 'sb_publishable_XiOC-i6wkktcqnviRktbdw_Qx9CEwis';
+        
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        // 3. Handle Form Submission
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageDiv = document.getElementById('formMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // UI: Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            messageDiv.className = 'message';
+            messageDiv.style.display = 'none';
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Basic validation
+            if (!name || !email || !message) {
+                showMessage('Please fill in all fields.', 'error');
+                resetButton();
+                return;
+            }
+
+            try {
+                // Insert data into Supabase
+                const { data, error } = await supabase
+                    .from('contact_submissions')
+                    .insert([{ name: name, email: email, message: message }]);
+
+                if (error) throw error;
+
+                // Success
+                showMessage('Thank you! Your message has been sent.', 'success');
+                form.reset();
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('Oops! Something went wrong. Please try again.', 'error');
+            } finally {
+                resetButton();
+            }
+        });
+
+        function showMessage(msg, type) {
+            messageDiv.textContent = msg;
+            messageDiv.className = `message ${type}`;
+        }
+
+        function resetButton() {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+        }
+    </script>
+</body>
+</html>
