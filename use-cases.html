@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases | NovaCut Professional Video Editor</title>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-card: #16161a;
+            --accent-violet: #8b5cf6;
+            --accent-glow: rgba(139, 92, 246, 0.3);
+            --text-main: #f8f8f2;
+            --text-muted: #a1a1aa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10, 10, 12, 0.8); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+        .logo span { color: var(--accent-violet); }
+        .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent-violet); transition: color 0.3s; }
+        .nav-cta {
+            background-color: var(--accent-violet); color: white; padding: 0.6rem 1.2rem;
+            border-radius: 6px; font-weight: 600; font-size: 0.9rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 15px var(--accent-glow); }
+
+        /* --- PAGE HERO --- */
+        .page-hero {
+            padding: 10rem 5% 4rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 10%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+        }
+        .page-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1rem; }
+        .page-hero h1 span { color: var(--accent-violet); }
+        .page-hero p { color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.1rem; }
+
+        /* --- USE CASE GRID --- */
+        .use-case-section { padding: 4rem 5% 8rem; max-width: 1200px; margin: 0 auto; }
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .use-case-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            transition: border-color 0.3s, transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .use-case-card:hover {
+            border-color: var(--accent-violet);
+            transform: translateY(-5px);
+        }
+        .use-case-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: var(--accent-glow);
+            width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; color: var(--accent-violet);
+        }
+        .use-case-card h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+        .use-case-card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 1.5rem; }
+        .use-case-link {
+            color: var(--accent-violet);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .use-case-link:hover { text-decoration: underline; }
+
+        /* --- FINAL CTA & FOOTER --- */
+        .final-cta { padding: 6rem 5%; text-align: center; background-color: #0d0d10; }
+        .final-cta h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .final-cta p { color: var(--text-muted); margin-bottom: 2rem; }
+        .hero-btn {
+            background-color: var(--accent-violet); color: white; padding: 1rem 2.5rem;
+            border-radius: 8px; font-size: 1.1rem; font-weight: 600; display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px var(--accent-glow); }
+        footer { padding: 2rem 5%; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-muted); font-size: 0.8rem; }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .use-case-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">Nova<span>Cut</span></div>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="use-cases.html">Use Cases</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <a href="contact.html" class="nav-cta">Start for Free</a>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <h1>Built for <span>Your Workflow.</span></h1>
+        <p>Whether you're publishing daily content or editing a feature film, NovaCut adapts to the way you create.</p>
+    </section>
+
+    <!-- USE CASE GRID -->
+    <section class="use-case-section">
+        <div class="use-case-grid">
+            
+            <div class="use-case-card">
+                <div class="use-case-icon">▶</div>
+                <h3>YouTube Creators</h3>
+                <p>Speed up your upload schedule. Use AI-powered rough cuts to assemble your vlog or tutorial in minutes, and auto-generate captions for maximum reach.</p>
+                <a href="contact.html" class="use-case-link">Start Editing →</a>
+            </div>
+
+            <div class="use-case-card">
+                <div class="use-case-icon">📱</div>
+                <h3>Social Media Managers</h3>
+                <p>Create high-volume, engaging short-form content. Crop, resize, and repurpose long-form video for TikTok, Reels, and Shorts with a single click.</p>
+                <a href="contact.html" class="use-case-link">Start Editing →</a>
+            </div>
+
+            <div class="use-case-card">
+                <div class="use-case-icon">🎬</div>
+                <h3>Documentary Editors</h3>
+                <p>Manage hundreds of hours of footage without crashing. NovaCut's native 8K performance and AI scene detection help you find the story in the chaos.</p>
+                <a href="contact.html" class="use-case-link">Start Editing →</a>
+            </div>
+
+            <div class="use-case-card">
+                <div class="use-case-icon">💼</div>
+                <h3>Corporate Video Teams</h3>
+                <p>Collaborate seamlessly. Real-time cloud sync means your team can review, comment, and approve cuts from anywhere in the world, on any device.</p>
+                <a href="contact.html" class="use-case-link">Start Editing →</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <h2>Find your workflow.</h2>
+        <p>Join thousands of creators who have upgraded their editing process.</p>
+        <a href="contact.html" class="hero-btn">Get Started Free</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 NovaCut Software. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
