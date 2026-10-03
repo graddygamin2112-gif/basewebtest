@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaCut | Professional AI Video Editing</title>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-card: #16161a;
+            --accent-violet: #8b5cf6;
+            --accent-glow: rgba(139, 92, 246, 0.3);
+            --text-main: #f8f8f2;
+            --text-muted: #a1a1aa;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .logo span {
+            color: var(--accent-violet);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: var(--accent-violet);
+            transition: color 0.3s;
+        }
+        .nav-cta {
+            background-color: var(--accent-violet);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 span {
+            background: linear-gradient(90deg, #8b5cf6, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+        .hero-btn {
+            background-color: var(--accent-violet);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        /* --- BENTO GRID FEATURES --- */
+        .features-section {
+            padding: 6rem 5%;
+            background-color: #0d0d10;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .bento-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: border-color 0.3s, transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 250px;
+        }
+        .bento-card:hover {
+            border-color: var(--accent-violet);
+            transform: translateY(-5px);
+        }
+        .bento-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .bento-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        /* Bento Grid Spans */
+        .card-wide { grid-column: span 2; }
+        .card-tall { grid-row: span 2; }
+        .card-large { grid-column: span 2; grid-row: span 2; }
+
+        /* Feature Icons (Simple CSS shapes for now) */
+        .icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-glow);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-violet);
+            font-weight: bold;
+        }
+
+        /* --- FINAL CTA SECTION --- */
+        .final-cta {
+            padding: 6rem 5%;
+            text-align: center;
+            background: linear-gradient(0deg, var(--bg-dark) 0%, #0d0d10 100%);
+        }
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .final-cta p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card-large { grid-column: span 2; grid-row: span 1; }
+            .nav-links { display: none; } /* Hide complex nav on small screens, rely on CTA */
+        }
+        @media (max-width: 600px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-wide { grid-column: span 1; }
+            .hero h1 { font-size: 2.2rem; }
+            nav { padding: 1rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">Nova<span>Cut</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#">Use Cases</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <a href="#" class="nav-cta">Start for Free</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Professional Editing.<br><span>Without the Friction.</span></h1>
+        <p>The AI-powered video editor built for creators who demand precision, speed, and cinematic control. Stop wrestling with your timeline and start telling your story.</p>
+        <a href="#" class="hero-btn">Start Editing Free</a>
+    </section>
+
+    <!-- BENTO GRID FEATURES -->
+    <section class="features-section" id="features">
+        <h2 class="section-title">Built for the Modern Editor</h2>
+        <div class="bento-grid">
+            
+            <!-- Card 1: Large Feature -->
+            <div class="bento-card card-large">
+                <div class="icon">AI</div>
+                <h3>AI-Powered Rough Cuts</h3>
+                <p>Upload your footage and let NovaCut automatically detect scenes, remove silences, and assemble a rough cut in seconds, saving you hours of tedious work.</p>
+            </div>
+
+            <!-- Card 2: Tall Feature -->
+            <div class="bento-card card-tall">
+                <div class="icon">CC</div>
+                <h3>Cinematic Color</h3>
+                <p>Industry-standard color science with real-time GPU acceleration. Apply film emulations and custom LUTs without dropping a frame.</p>
+            </div>
+
+            <!-- Card 3: Standard Feature -->
+            <div class="bento-card">
+                <div class="icon">⚡</div>
+                <h3>Real-Time Collaboration</h3>
+                <p>Work with your team, frame by frame. Leave comments, share previews, and edit together in real-time.</p>
+            </div>
+
+            <!-- Card 4: Standard Feature -->
+            <div class="bento-card">
+                <div class="icon">4K</div>
+                <h3>8K Native Performance</h3>
+                <p>Built on a native 64-bit architecture. Edit 8K footage on a laptop without proxies or rendering delays.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <h2>Ready to transform your workflow?</h2>
+        <p>Join thousands of professional editors who have already made the switch.</p>
+        <a href="#" class="hero-btn">Download NovaCut Free</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 NovaCut Software. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
